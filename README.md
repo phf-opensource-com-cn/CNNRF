@@ -7,7 +7,6 @@ The repository includes:
 - Train and predict   
 - Postprocess  
 - Random forest  
-
 ## Requirements  
 - Python 3.6.x or above  
 - Tensoflow 1.6.x  
@@ -22,7 +21,28 @@ There are have broad categories:
 
 1. Finding Region of Interest(ROI)  
 2. Exatract Patches from ROI  
+3. Data augumentation  
 
+**get _ mask.py**  
+**get _ patches.py**  
+
+## Keras Finetuming  
+Patches classfier for normal and tumor patch  
+
+**train _ images _ classifier.py**  
+**evl _ images.py**
+
+## Postprocess  
+There are have broad categories:  
+
+
+
+1. get consecutive patches for heatmaps  
+2. get heatmaps for all trainset slide  
+
+##  Random forest  
+
+This is slide based classifier using what we get in above steps!!   
 
 
 
