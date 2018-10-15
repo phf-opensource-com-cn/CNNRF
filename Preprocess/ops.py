@@ -118,7 +118,8 @@ def get_samples_of_patch_starting_points_with_stride(mask_image, stride):
     return list_starting_points
 
 # extract patches from slide and mask.
-def extract_patches_from_slide_and_mask(slide_path, maskdir, mask_lastname, level, is_for_tumor_patch=False, tumor_patch=True):
+def extract_patches_from_slide_and_mask(slide_path, maskdir, mask_lastname, level,
+                                        is_for_tumor_patch=False, tumor_patch=True):
 
     mask_name, mask_exist = name_and_exist(slide_path, maskdir, mask_lastname)
 
