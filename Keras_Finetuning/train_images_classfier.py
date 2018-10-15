@@ -9,7 +9,7 @@ import datetime as dt
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import seaborn as sns
+#import seaborn as sns
 
 from keras.applications import xception
 from keras.applications import inception_resnet_v2
@@ -54,6 +54,7 @@ def get_data_generator(train_path, val_path):
                                        featurewise_std_normalization=False,
                                        rescale=1./255,
                                        rotation_range=20,
+                                       zoom_range=0.2,
                                        horizontal_flip=True)
     train_generator = train_datagen.flow_from_directory(train_path,
                                                         target_size=(256,256),
@@ -61,10 +62,9 @@ def get_data_generator(train_path, val_path):
                                                         class_mode='categorical',
                                                         classes={'normal': 0, 'tumor': 1})
 
-    val_datagen = ImageDataGenerator(featurewise_center=False,
-                                     featurewise_std_normalization=False,
-                                     rescale=1./255,
+    val_datagen = ImageDataGenerator(rescale=1./255,
                                      horizontal_flip=False)
+
     val_generator = val_datagen.flow_from_directory(val_path,
                                                     target_size=(256,256),
                                                     batch_size=32,
@@ -92,8 +92,7 @@ def create_model():
 
 def reload_model(json_path, weights_dir):
     model = model_from_json(open(json_path).read())
-    weights_name = get_file_list(weights_dir)[-1]
-    weights_path = os.path.join(weights_dir, weights_name)
+    weights_path = os.path.join(weights_dir, 'InRe2weights.best.h5')
     model.load_weights(weights_path)
     model.compile(optimizer='Adam', loss='categorical_crossentropy',
                   metrics=['accuracy'])
@@ -147,5 +146,7 @@ if __name__ == '__main__':
 
 
     history = model.fit_generator(generator=train_generator, epochs=hp.EPOCH,
-                                  verbose=1, callbacks=callbacks, validate_generator=validate_generator,
-                                  workers=6, use_multiprocessing=False, shuffle=True, initial_epoch=1)
+                                  verbose=1, callbacks=callbacks, validation_data=validate_generator,
+                                  workers=6, use_multiprocessing=False, shuffle=True, initial_epoch=0)
+
+# do not forget make roc curve
