@@ -21,10 +21,18 @@ class config():
     TRAIN_PREPROCESS = os.path.join(WSI_DATA_DIR, 'Preprocess')
     SLIDE_MAP_AND_MASK = os.path.join(TRAIN_PREPROCESS, 'map_mask')
 
-    TRAIN_PATCHES = os.path.join(TRAIN_PREPROCESS, 'patch')
+    TRAIN_PATCHES = os.path.join(TRAIN_PREPROCESS, 'patch/train')
     NORMAL_PATCHES = os.path.join(TRAIN_PATCHES, 'normal')
     TUMOR_PATCHES = os.path.join(TRAIN_PATCHES, 'tumor')
 
+    VAL_PATCHES = os.path.join(TRAIN_PREPROCESS, 'patch/validation')
+    VAL_NORMAL_PATCHES = os.path.join(TRAIN_PATCHES, 'normal')
+    VAL_TUMOR_PATCHES = os.path.join(TRAIN_PATCHES, 'tumor')
+
+    # TRAINING
+    TRAIN_SAVED = os.path.join(WSI_DATA_DIR, 'Keras_finetuning')
+    TRAIN_SAVED_MODEL = os.path.join(TRAIN_SAVED, 'saved_model')
+    TRAIN_SAVED_MODEL_INCEPTIONRESNET_V2 = os.path.join(TRAIN_SAVED_MODEL, 'inceptionresnet_v2')
 
 '''
 Preprocess parameters
@@ -35,5 +43,8 @@ class hp():
     EXTRACT_SAMPLES_EVERY_NORMAL_SLIDE = 1000
     EXTRACT_SAMPLES_EVERY_TUMOR_SLIDE = 2000
     PATCH_SIZE = 256
+
+    # training
+    EPOCH = 100
 
 
