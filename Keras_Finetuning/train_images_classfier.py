@@ -147,6 +147,7 @@ if __name__ == '__main__':
 
     history = model.fit_generator(generator=train_generator, epochs=hp.EPOCH,
                                   verbose=1, callbacks=callbacks, validation_data=validate_generator,
+                                  class_weight={0: 1, 1: 1.4},
                                   workers=6, use_multiprocessing=False, shuffle=True, initial_epoch=0)
 
 # do not forget make roc curve
