@@ -10,7 +10,7 @@ print('user: %s' % user)
 
 # 数据总路径
 WSI_DATA_DIR_LIST = {"Administrator": "G:/Data/wsi_data_dir/",
-                     "qianslab": "/media/qianslab/Data/wsi_data_dir/"}
+                     "qianslab": "/media/qianslab/Data/ACH1/wsi_data_dir/"}
 WSI_DATA_DIR = WSI_DATA_DIR_LIST[user]
 
 class config():
