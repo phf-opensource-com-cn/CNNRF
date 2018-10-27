@@ -70,7 +70,7 @@ def read_xml(path,  level_downsam):
 def saved_tissue_mask(slide, mask_dir, tissue_mask_name, level):
     normal_slide_lv = slide.read_region((0, 0), level, slide.level_dimensions[level])
     R, G, B, _ = normal_slide_lv.split()
-    normal_slide_lv_rgb = np.array(Image.merge('RGB', (R, G, B)))
+    normal_slide_lv_rgb = np.array(Image.merge('RGB', [R, G, B]))
     normal_slide_lv_rgb = cv2.cvtColor(normal_slide_lv_rgb, cv2.COLOR_BGR2HSV)
     normal_slide_lv_rgb = normal_slide_lv_rgb[:, :, 1]
     _, normal_tissue_mask = cv2.threshold(normal_slide_lv_rgb, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
@@ -155,7 +155,7 @@ def extract_patches_from_slide_and_mask(slide_path, maskdir, mask_lastname, leve
                                                                         (hp.PATCH_SIZE, hp.PATCH_SIZE))
 
             r, g, b, _ = patch_read_from_wsi_at_zero_level.split()
-            normal_patch_rgb = Image.merge("RGB", (r, g, b))
+            normal_patch_rgb = Image.merge("RGB", [r, g, b])
             if tumor_patch == True:
                 dir_for_pathes = config.TUMOR_PATCHES
             else:

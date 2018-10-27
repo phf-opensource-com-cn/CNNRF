@@ -18,7 +18,7 @@ def extract__consecutive_patches_use_slide_and_mask(slide_path, maskdir, mask_la
     slide = openslide.OpenSlide(slide_path)
     mask = cv2.imread(os.path.join(maskdir, mask_name), 0)
 
-    patches_start_points = ops.get_samples_of_patch_starting_points_with_stride(mask, stride=2)
+    patches_start_points = ops.get_samples_of_patch_starting_points_with_stride(mask, stride=1000)
 
     down_samples = round(slide.level_downsamples[level])
 
@@ -31,8 +31,9 @@ def extract__consecutive_patches_use_slide_and_mask(slide_path, maskdir, mask_la
                                                                         0,
                                                                         (hp.PATCH_SIZE, hp.PATCH_SIZE))
 
+
             r, g, b, _ = patch_read_from_wsi_at_zero_level.split()
-            normal_patch_rgb = Image.merge("RGB", (r, g, b))
+            normal_patch_rgb = Image.merge("RGB", [r, g, b])
 
             wsi_name = os.path.split(slide_path)[-1].split('.')[0]
             dir_for_pathes = config.PATCH_FOR_HEATMAP.replace('WSI_NAME', wsi_name)
