@@ -54,5 +54,6 @@ class hp():
 
     # training
     EPOCH = 100
+    BATCH_SIZE = 32
 
 

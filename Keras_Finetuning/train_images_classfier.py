@@ -5,6 +5,7 @@ fine-tuning for binary classifier
 '''
 
 import os
+import argparse
 import datetime as dt
 import matplotlib.pyplot as plt
 import numpy as np
@@ -35,7 +36,34 @@ from tqdm import tqdm
 
 from util_defined import config, hp
 
+
+parser = argparse.ArgumentParser(description='training the base model')
+parser.add_argument('--model_name', default='inception_resnet_v2', metavar='MODEL NAME', type=str,
+                    help='Select the train model. ')
+parser.add_argument('--trainset_path', default=config.TRAIN_PATCHES, metavar='TRAINSET PATH',
+                    type=str, help='Trainset path. ')
+parser.add_argument('--valset_path', default=config.VAL_PATCHES, metavar='VALSET PATH',
+                    type=str, help='Validationset path. ')
+parser.add_argument('--savedmodel_path', default=config.TRAIN_SAVED_MODEL, metavar='SAVED MODEL PATH',
+                    type=str, help='Saved model path. ')
+parser.add_argument('--batch_size', default=hp.BATCH_SIZE, metavar='BATCH SIZE',
+                    type=int, help='batch size (inter). ')
+
+# select model module.
+def select_model_moduel(model_name):
+    if model_name == 'inception_resnet_v2':
+        model_used = inception_resnet_v2.InceptionResNetV2
+    elif model_name == 'resnet50':
+        model_used = resnet50.ResNet50
+    elif model_name == 'inception_v3':
+        model_used = inception_v3.InceptionV3
+    elif model_name == 'xception':
+        model_used = xception.Xception
+
+    return model_used
 # sort file
+# if the best-5 models are made, when retrain, sort the model
+# and select the last one.
 def get_file_list(file_path):
     dir_list = os.listdir(file_path)
     if not dir_list:
@@ -58,7 +86,7 @@ def get_data_generator(train_path, val_path):
                                        horizontal_flip=True)
     train_generator = train_datagen.flow_from_directory(train_path,
                                                         target_size=(256,256),
-                                                        batch_size=32,
+                                                        batch_size=args.batch_size,
                                                         class_mode='categorical',
                                                         classes={'normal': 0, 'tumor': 1})
 
@@ -67,16 +95,17 @@ def get_data_generator(train_path, val_path):
 
     val_generator = val_datagen.flow_from_directory(val_path,
                                                     target_size=(256,256),
-                                                    batch_size=32,
+                                                    batch_size=args.batch_size,
                                                     class_mode='categorical',
                                                     classes={'normal': 0, 'tumor': 1})
 
     return train_generator, val_generator
 
-def create_model():
-    base_model = inception_resnet_v2.InceptionResNetV2(weights='imagenet',
-                                                       include_top=False,
-                                                       pooling='avg')
+def create_model(name):
+    model_used = select_model_moduel(name)
+    base_model = model_used(weights='imagenet',
+                            include_top=False,
+                            pooling='avg')
     x = base_model.output
     x = Dense(500, activation='relu')(x)
     predictons = Dense(2, activation='softmax')(x)
@@ -90,9 +119,10 @@ def create_model():
 
     return model
 
-def reload_model(json_path, weights_dir):
+def reload_model(json_path, weights_dir, model_name):
     model = model_from_json(open(json_path).read())
-    weights_path = os.path.join(weights_dir, 'InRe2weights.best.h5')
+    filepath = model_name + '_best.h5'
+    weights_path = os.path.join(weights_dir, filepath)
     model.load_weights(weights_path)
     model.compile(optimizer='Adam', loss='categorical_crossentropy',
                   metrics=['accuracy'])
@@ -100,8 +130,8 @@ def reload_model(json_path, weights_dir):
 
 
 
-def callback_function(saved_model_dir):
-    filepath = 'InRe2weights.best.h5'
+def callback_function(saved_model_dir, model_name):
+    filepath = model_name + '_best.h5'
     saved_path = os.path.join(saved_model_dir, filepath)
     csv_path = os.path.join(saved_model_dir, 'result.csv')
 
@@ -109,45 +139,53 @@ def callback_function(saved_model_dir):
                                       save_best_only=True, save_weights_only=True, period=1)
 
     early_stoping = EarlyStopping(monitor='acc', verbose=1, min_delta=0,
-                                  patience=8, mode='auto')
+                                  patience=6, mode='auto')
 
-    reduce_lr = ReduceLROnPlateau(monitor='acc', factor=0.4,
-                                  patience=5, min_lr=0.00001)
+    reduce_lr = ReduceLROnPlateau(monitor='acc', factor=0.1,
+                                  patience=1, min_lr=0.00001)
 
     csv_logger = CSVLogger(filename=csv_path, separator=',', append=True)
     return [model_chekpoint, early_stoping, reduce_lr, csv_logger]
 
 if __name__ == '__main__':
 
-    train_path = config.TRAIN_PATCHES
-    val_path = config.VAL_PATCHES
-    train_save_weight_path = config.TRAIN_SAVED_MODEL_INCEPTIONRESNET_V2
+    args = parser.parse_args()
+
+    # define data and output path
+    train_path = args.trainset_path
+    val_path = args.valset_path
+    saved_model_dir = args.savedmodel_path # save model dir
+    model_name = args.model_name # select model name
+    # the saved model path
+    train_save_weight_path = os.path.join(saved_model_dir, model_name)
+    if not os.path.exists(train_save_weight_path):
+        os.mkdir(train_save_weight_path)
 
     # get train_generator and validate_generator
     train_generator, validate_generator = get_data_generator(train_path, val_path)
 
     # json file name
-    json_name = 'InceptionResnet_v2_finetuning.json'
+    json_name = model_name + '_finetuning.json'
     json_path = os.path.join(train_save_weight_path, json_name)
-
 
     if not os.path.exists(json_path):
         # create train model
-        model = create_model()
+        model = create_model(model_name, model_name)
+        print('create model')
         # save net to json
         json_string = model.to_json()
         open(json_path, 'w').write(json_string)
     else:
-        model = reload_model(json_path, train_save_weight_path)
+        model = reload_model(json_path, train_save_weight_path, model_name)
         print("reload model")
 
     # get callback function
-    callbacks = callback_function(train_save_weight_path)
+    callbacks = callback_function(train_save_weight_path, model_name)
 
 
     history = model.fit_generator(generator=train_generator, epochs=hp.EPOCH,
                                   verbose=1, callbacks=callbacks, validation_data=validate_generator,
-                                  class_weight={0: 1, 1: 1.4},
+                                  class_weight=None,
                                   workers=6, use_multiprocessing=False, shuffle=True, initial_epoch=0)
 
 # do not forget make roc curve
