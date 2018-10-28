@@ -25,7 +25,7 @@ def get_data_generator(val_path):
     return val_generator
 
 if __name__ == '__main__':
-    test_dir = 'G:/Data/wsi_data_dir/Postprocess/patch/predict01'
+    test_dir = 'nnnn'
     validate_generator = get_data_generator(test_dir)
 
     model = model_from_json(open(
