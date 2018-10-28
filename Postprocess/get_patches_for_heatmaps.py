@@ -10,6 +10,24 @@ import openslide
 from util_defined import config, hp
 from Preprocess import ops
 
+import argparse
+
+parser = argparse.ArgumentParser(description='get patches for heatmaps')
+parser.add_argument('--mask_path', default=config.TISSUE_MASK_DIR, type=str,
+                    metavar='MASK PATH', help='Save the mask path. ')
+parser.add_argument('--test_wsis', default=config.TEST_SLIDE_DIR, type=str,
+                    metavar='TEST SLIDE PATH', help='Test slide path. ')
+parser.add_argument('--level', default=hp.level, type=int,
+                    metavar='LEVEL', help='The level. ')
+parser.add_argument('--wsis_list_start', default=0, type=int,
+                    metavar='WSIS LIST START', help='Select the wsis to get patches for getting heatmaps. ')
+parser.add_argument('--wsis_list_end', default=1, type=int,
+                    metavar='WSIS LIST END', help='Select the wsis to get patches for getting heatmaps. ')
+parser.add_argument('--stride', default=1000, type=int, metavar='STRIDE',
+                    help='Get patches stride. ')
+
+
+
 # extract patches from slide and mask.
 def extract__consecutive_patches_use_slide_and_mask(slide_path, maskdir, mask_lastname, level):
 
@@ -18,7 +36,7 @@ def extract__consecutive_patches_use_slide_and_mask(slide_path, maskdir, mask_la
     slide = openslide.OpenSlide(slide_path)
     mask = cv2.imread(os.path.join(maskdir, mask_name), 0)
 
-    patches_start_points = ops.get_samples_of_patch_starting_points_with_stride(mask, stride=1000)
+    patches_start_points = ops.get_samples_of_patch_starting_points_with_stride(mask, stride=args.stride)
 
     down_samples = round(slide.level_downsamples[level])
 
@@ -51,7 +69,9 @@ def extract__consecutive_patches_use_slide_and_mask(slide_path, maskdir, mask_la
 
 def get_test_tissue_mask(path, level, maskdir):
     test_wsi_paths = ops.get_normal_wsi_path(path)
-    for test_wsi_path in test_wsi_paths:
+    select_test_wsi_path = test_wsi_paths[args.wsis_list_start:args.wsis_list_end]
+    print(select_test_wsi_path)
+    for test_wsi_path in select_test_wsi_path:
         print('Get mask for heatmap: %s' % test_wsi_path)
         slide = openslide.OpenSlide(test_wsi_path)
 
@@ -69,15 +89,19 @@ def get_test_tissue_mask(path, level, maskdir):
 
 def get_consecutive_patch(path, level, maskdir):
     test_wsi_paths = ops.get_normal_wsi_path(path)
-    for test_wsi_path in test_wsi_paths:
+    select_test_wsi_path = test_wsi_paths[args.wsis_list_start:args.wsis_list_end] # change the file for get patches
+    print(select_test_wsi_path)
+    for test_wsi_path in select_test_wsi_path:
         extract__consecutive_patches_use_slide_and_mask(test_wsi_path, maskdir, '_tissue_mask.png',level)
 
 
 if __name__ == '__main__':
 
-    test_wsi_paths = config.TEST_SLIDE_DIR
-    maskdir = config.TISSUE_MASK_DIR
-    level = hp.level
+    args = parser.parse_args()
+
+    test_wsi_paths = args.test_wsis
+    maskdir = args.mask_path
+    level = args.level
 
     # get tissue mask from test slide
     get_test_tissue_mask(test_wsi_paths, level, maskdir)

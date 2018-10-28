@@ -38,7 +38,7 @@ class config():
     TEST_SLIDE_DIR = os.path.join(RAW_DATA_DIR, 'test')
     POSTPROCESS_DIR = os.path.join(WSI_DATA_DIR, 'Postprocess')
     TISSUE_MASK_DIR = os.path.join(POSTPROCESS_DIR, 'tissue_mask')
-    PATCH_FOR_HEATMAP = os.path.join(POSTPROCESS_DIR, 'patch/WSI_NAME')
+    PATCH_FOR_HEATMAP = os.path.join(POSTPROCESS_DIR, 'patch/WSI_NAME/WSI_NAME')
 
 
 
