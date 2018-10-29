@@ -73,7 +73,7 @@ if __name__ == '__main__':
     get_tumor_patches_from_tumor_slide(tumor_wsi_paths, level, maskdir)
 
     # get normal patches from tumor slide
-    # get_normal_patches_from_tumor_slide(tumor_wsi_paths, level, maskdir)
+    get_normal_patches_from_tumor_slide(tumor_wsi_paths, level, maskdir)
 
     '''
     normal patches data mining using the around area or tumor mask;
@@ -81,4 +81,4 @@ if __name__ == '__main__':
     get_normal_patches_from_tumor_slide at one time
     '''
     # get normal patch data mining from tumor slide
-    get_normal_mining_patch_from_tumor_mask(tumor_wsi_paths, level, maskdir)
+    # get_normal_mining_patch_from_tumor_mask(tumor_wsi_paths, level, maskdir)

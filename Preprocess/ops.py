@@ -155,15 +155,69 @@ def extract_patches_from_slide_and_mask(slide_path, maskdir, mask_lastname, leve
                                                                         (hp.PATCH_SIZE, hp.PATCH_SIZE))
 
             r, g, b, _ = patch_read_from_wsi_at_zero_level.split()
-            normal_patch_rgb = Image.merge("RGB", [r, g, b])
+            patch_rgb = Image.merge("RGB", [r, g, b])
             if tumor_patch == True:
                 dir_for_pathes = config.TUMOR_PATCHES
             else:
                 dir_for_pathes = config.NORMAL_PATCHES
 
-            normal_name = mask_name.split('_')[0] + '_' + str(sample_accepted) + '_' + \
+            patch_name = mask_name.split('_')[0] + '_' + str(sample_accepted) + '_' + \
                           str(count) + '_' + str(sample_rejected) + '.png'
-            normal_patch_rgb.save(os.path.join(dir_for_pathes, normal_name))
+            patch_rgb.save(os.path.join(dir_for_pathes, patch_name))
+            sample_accepted += 1
+        else:
+            sample_rejected += 1
+    slide_name = os.path.split(slide_path)[-1]
+    slide.close()
+    print('File: %s; Accept: %d; Reject: %d' % (slide_name, sample_accepted, sample_rejected))
+
+'''
+############ ===========                                   =========== ############
+############ =========== get patches for heatmap functions =========== ############
+############ ===========                                   =========== ############
+'''
+# extract patches from slide and mask.
+def extract_patches_from_slide_and_mask_for_heatmap(slide_path, maskdir, mask_lastname, level,
+                                                    stride,
+                                                    tumor_patch=True,
+                                                    normal_patch_path=None, tumor_patch_path=None):
+
+    mask_name, mask_exist = name_and_exist(slide_path, maskdir, mask_lastname)
+
+    slide = openslide.OpenSlide(slide_path)
+    mask = cv2.imread(os.path.join(maskdir, mask_name), 0)
+    patches_start_points = get_samples_of_patch_starting_points_with_stride(mask, stride=stride)
+    '''
+    if is_for_tumor_patch == True:
+        patches_start_points = get_samples_of_patch_starting_points_with_stride(mask, stride=2)
+    else:
+        patches_start_points = get_samples_of_patch_starting_points_with_stride(mask, stride=10)
+    '''
+
+    down_samples = round(slide.level_downsamples[level])
+
+    # save patches
+    sample_accepted = 0
+    sample_rejected = 0
+    for x, y in patches_start_points:
+        if (mask[y, x] != 0):
+            patch_read_from_wsi_at_zero_level = slide.read_region((x * down_samples, y * down_samples),
+                                                                        0,
+                                                                        (hp.PATCH_SIZE, hp.PATCH_SIZE))
+
+            r, g, b, _ = patch_read_from_wsi_at_zero_level.split()
+            normal_patch_rgb = Image.merge("RGB", [r, g, b])
+
+            wsi_name = os.path.split(slide_path)[-1].split('.')[0]
+            if tumor_patch == True:
+                dir_for_pathes = tumor_patch_path.replace('WSI_NAME', wsi_name)
+            else:
+                dir_for_pathes = normal_patch_path.replace('WSI_NAME', wsi_name)
+            if not os.path.exists(dir_for_pathes):
+                os.makedirs(dir_for_pathes)
+
+            patch_name = str(x) + '_' + str(y) + '.png'
+            normal_patch_rgb.save(os.path.join(dir_for_pathes, patch_name))
             sample_accepted += 1
         else:
             sample_rejected += 1

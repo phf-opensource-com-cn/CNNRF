@@ -38,7 +38,13 @@ class config():
     TEST_SLIDE_DIR = os.path.join(RAW_DATA_DIR, 'test')
     POSTPROCESS_DIR = os.path.join(WSI_DATA_DIR, 'Postprocess')
     TISSUE_MASK_DIR = os.path.join(POSTPROCESS_DIR, 'tissue_mask')
-    PATCH_FOR_HEATMAP = os.path.join(POSTPROCESS_DIR, 'patch/WSI_NAME/WSI_NAME')
+    PATCH_FOR_HEATMAP_tumor = os.path.join(POSTPROCESS_DIR, 'patch/WSI_NAME/tumor')
+    PATCH_FOR_HEATMAP_normal = os.path.join(POSTPROCESS_DIR, 'patch/WSI_NAME/normal')
+    PATCH_FOR_HEATMAP_test = os.path.join(POSTPROCESS_DIR, 'test_patch/WSI_NAME/WSI_NAME')
+    PATCH_FOR_HEATMAP_test_DIR = os.path.join(POSTPROCESS_DIR, 'test_patch')
+    PATCH_FOR_HEATMAP_PROBABILITY = os.path.join(POSTPROCESS_DIR, 'probability/WSI_NAME_result.txt')
+    PATCH_FOR_HEATMAP_PROBABILITY_DIR = os.path.join(POSTPROCESS_DIR, 'probability')
+    HEATMAP_PATH = os.path.join(POSTPROCESS_DIR, 'heatmap')
 
 
 
@@ -48,8 +54,8 @@ Preprocess parameters
 class hp():
     level = 2
 
-    EXTRACT_SAMPLES_EVERY_NORMAL_SLIDE = 1000
-    EXTRACT_SAMPLES_EVERY_TUMOR_SLIDE = 2000
+    EXTRACT_SAMPLES_EVERY_NORMAL_SLIDE = 2000
+    EXTRACT_SAMPLES_EVERY_TUMOR_SLIDE = 3000
     PATCH_SIZE = 256
 
     # training

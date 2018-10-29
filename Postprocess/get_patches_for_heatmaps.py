@@ -1,11 +1,7 @@
 # utf-8
 # Author: ilikewind
 
-import os
-import numpy as np
-import cv2
-from PIL import Image
-import openslide
+
 
 from util_defined import config, hp
 from Preprocess import ops
@@ -17,56 +13,31 @@ parser.add_argument('--mask_path', default=config.TISSUE_MASK_DIR, type=str,
                     metavar='MASK PATH', help='Save the mask path. ')
 parser.add_argument('--test_wsis', default=config.TEST_SLIDE_DIR, type=str,
                     metavar='TEST SLIDE PATH', help='Test slide path. ')
+
+parser.add_argument('--normal_path', default=config.RAW_NORMAL_DATA_DIR, type=str,
+                    metavar='NORMAL PATH', help='normal slide path. ')
+parser.add_argument('--tumor_path', default=config.RAW_TUMOR_DATA_DIR, type=str,
+                    metavar='TUMOR PATH', help='tumor slide path. ')
+parser.add_argument('--trainset_mask', default=config.SLIDE_MAP_AND_MASK, type=str,
+                    metavar='TRAINSET MASK PATH', help='Train set mask path. ')
+
+parser.add_argument('--normal_patch_path', default=config.PATCH_FOR_HEATMAP_normal, type=str,
+                    metavar='NORMAL PATCH PATH', help='normal patch path. ')
+parser.add_argument('--tumor_patch_path', default=config.PATCH_FOR_HEATMAP_tumor, type=str,
+                    metavar='NORMAL PATCH PATH', help='normal patch path. ')
+
 parser.add_argument('--level', default=hp.level, type=int,
                     metavar='LEVEL', help='The level. ')
 parser.add_argument('--wsis_list_start', default=0, type=int,
                     metavar='WSIS LIST START', help='Select the wsis to get patches for getting heatmaps. ')
 parser.add_argument('--wsis_list_end', default=1, type=int,
                     metavar='WSIS LIST END', help='Select the wsis to get patches for getting heatmaps. ')
-parser.add_argument('--stride', default=1000, type=int, metavar='STRIDE',
+parser.add_argument('--stride', default=10000, type=int, metavar='STRIDE',
                     help='Get patches stride. ')
 
 
-
-# extract patches from slide and mask.
-def extract__consecutive_patches_use_slide_and_mask(slide_path, maskdir, mask_lastname, level):
-
-    mask_name, mask_exist = ops.name_and_exist(slide_path, maskdir, mask_lastname)
-
-    slide = openslide.OpenSlide(slide_path)
-    mask = cv2.imread(os.path.join(maskdir, mask_name), 0)
-
-    patches_start_points = ops.get_samples_of_patch_starting_points_with_stride(mask, stride=args.stride)
-
-    down_samples = round(slide.level_downsamples[level])
-
-    # save patches
-    sample_accepted = 0
-    sample_rejected = 0
-    for x, y in patches_start_points:
-        if (mask[y, x] != 0):
-            patch_read_from_wsi_at_zero_level = slide.read_region((x * down_samples, y * down_samples),
-                                                                        0,
-                                                                        (hp.PATCH_SIZE, hp.PATCH_SIZE))
-
-
-            r, g, b, _ = patch_read_from_wsi_at_zero_level.split()
-            normal_patch_rgb = Image.merge("RGB", [r, g, b])
-
-            wsi_name = os.path.split(slide_path)[-1].split('.')[0]
-            dir_for_pathes = config.PATCH_FOR_HEATMAP.replace('WSI_NAME', wsi_name)
-            if not os.path.exists(dir_for_pathes):
-                os.mkdir(dir_for_pathes)
-
-            patch_name = str(x) + '_' + str(y) + '.png'
-            normal_patch_rgb.save(os.path.join(dir_for_pathes, patch_name))
-            sample_accepted += 1
-        else:
-            sample_rejected += 1
-    slide_name = os.path.split(slide_path)[-1]
-    slide.close()
-    print('File: %s; Accept: %d; Reject: %d' % (slide_name, sample_accepted, sample_rejected))
-
+'''
+# for test slide 
 def get_test_tissue_mask(path, level, maskdir):
     test_wsi_paths = ops.get_normal_wsi_path(path)
     select_test_wsi_path = test_wsi_paths[args.wsis_list_start:args.wsis_list_end]
@@ -86,25 +57,69 @@ def get_test_tissue_mask(path, level, maskdir):
         tissue_mask_name, tissue_mask_exit = ops.name_and_exist(test_wsi_path, maskdir, "_tissue_mask.png")
         if tissue_mask_exit == False:
             ops.saved_tissue_mask(slide, maskdir, tissue_mask_name, level)
+'''
 
-def get_consecutive_patch(path, level, maskdir):
-    test_wsi_paths = ops.get_normal_wsi_path(path)
-    select_test_wsi_path = test_wsi_paths[args.wsis_list_start:args.wsis_list_end] # change the file for get patches
-    print(select_test_wsi_path)
-    for test_wsi_path in select_test_wsi_path:
-        extract__consecutive_patches_use_slide_and_mask(test_wsi_path, maskdir, '_tissue_mask.png',level)
+def get_consecutive_patch(normal_path, tumor_path, level, maskdir):
+    # test_wsi_paths = ops.get_normal_wsi_path(path)
+    # select_test_wsi_path = test_wsi_paths[args.wsis_list_start:args.wsis_list_end]  # change the file for get patches
+    ######### select slide to get the heatmaps ##########
+    normal_wsi_paths = ops.get_normal_wsi_path(normal_path)
+    tumor_wsi_paths, _ = ops.get_tumor_wsi_path(tumor_path)
+    select_normal_wsi_path = normal_wsi_paths[args.wsis_list_start:args.wsis_list_end]
+    select_tumor_wsi_path = tumor_wsi_paths[args.wsis_list_start:args.wsis_list_end]
+
+    '''
+    extract patches from normal slide
+    '''
+    print('Total get patches for heatmaps in\n%s' % (select_normal_wsi_path))
+    for normal_wsi_path in select_normal_wsi_path:
+            ops.extract_patches_from_slide_and_mask_for_heatmap(normal_wsi_path,
+                                                                maskdir,
+                                                                '_tissue_mask.png',
+                                                                level,
+                                                                stride=args.stride,
+                                                                tumor_patch=False,
+                                                                normal_patch_path=args.normal_patch_path,
+                                                                tumor_patch_path=args.tumor_patch_path)
+    '''
+    extract patches from tumor slide
+    '''
+    print('Total get patches for heatmaps in \n%s' % select_tumor_wsi_path)
+    for tumor_wsi_path in select_tumor_wsi_path:
+        # extract normal patches from tumor slide
+        ops.extract_patches_from_slide_and_mask_for_heatmap(tumor_wsi_path, maskdir,
+                                                            '_normal_mask.png', level,
+                                                            stride=args.stride,tumor_patch=False,
+                                                            normal_patch_path=args.normal_patch_path,
+                                                            tumor_patch_path=args.tumor_patch_path)
+        # extract tumor patches from tumor slide
+        ops.extract_patches_from_slide_and_mask_for_heatmap(tumor_wsi_path, maskdir,
+                                                            '_tumor_mask.png', level,
+                                                            stride=args.stride,tumor_patch=True,
+                                                            normal_patch_path=args.normal_patch_path,
+                                                            tumor_patch_path=args.tumor_patch_path)
 
 
 if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    test_wsi_paths = args.test_wsis
-    maskdir = args.mask_path
     level = args.level
-
+    '''
+    #####################################################
+    for testset, as we know. testset dont have tumor mask.
+    # slide path
+    # test_wsi_paths = args.test_wsis
+    # maskdir = args.mask_path
     # get tissue mask from test slide
     get_test_tissue_mask(test_wsi_paths, level, maskdir)
+    #####################################################
+    '''
+    # trainset slide path
+    normal_wsi_path = args.normal_path
+    tumor_wsi_path = args.tumor_path
+    trainset_mask = args.trainset_mask
+
 
     # get consecutive patch
-    get_consecutive_patch(test_wsi_paths, level, maskdir)
+    get_consecutive_patch(normal_wsi_path, tumor_wsi_path, level, trainset_mask)

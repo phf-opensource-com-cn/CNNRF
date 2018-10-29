@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="a8fbc88b-cc6c-4725-bf76-3d7f3e528a40" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/Postprocess/compute_patch_probability.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Postprocess/generator_heatmap.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Postprocess/get_test_patches_for_heatmap.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Postprocess/draw_heatmap.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Postprocess/get_patches_for_heatmaps.py" beforeDir="false" afterPath="$PROJECT_DIR$/Postprocess/get_patches_for_heatmaps.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Preprocess/get_patches.py" beforeDir="false" afterPath="$PROJECT_DIR$/Preprocess/get_patches.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Preprocess/ops.py" beforeDir="false" afterPath="$PROJECT_DIR$/Preprocess/ops.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/util_defined.py" beforeDir="false" afterPath="$PROJECT_DIR$/util_defined.py" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/wsi_tumor_detection$get_test_patches_for_heatmap.coverage" NAME="get_test_patches_for_heatmap Coverage Results" MODIFIED="1540815652069" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Postprocess" />
+    <SUITE FILE_PATH="coverage/wsi_tumor_detection$get_patches_for_heatmaps.coverage" NAME="get_patches_for_heatmaps Coverage Results" MODIFIED="1540782297407" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Postprocess" />
+    <SUITE FILE_PATH="coverage/wsi_tumor_detection$get_patches.coverage" NAME="get_patches Coverage Results" MODIFIED="1540817715679" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Preprocess" />
+    <SUITE FILE_PATH="coverage/wsi_tumor_detection$generator_heatmap.coverage" NAME="generator_heatmap Coverage Results" MODIFIED="1540817340432" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Postprocess" />
+    <SUITE FILE_PATH="coverage/wsi_tumor_detection$compute_patch_probability.coverage" NAME="compute_patch_probability Coverage Results" MODIFIED="1540817023849" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Postprocess" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="ops.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Preprocess/ops.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="256">
+              <caret line="146" column="17" lean-forward="true" selection-start-line="146" selection-start-column="17" selection-end-line="146" selection-end-column="17" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="train_images_classfier.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Keras_Finetuning/train_images_classfier.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="106">
+              <caret line="148" lean-forward="true" selection-start-line="148" selection-end-line="148" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="get_patches.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Preprocess/get_patches.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="135">
+              <caret line="34" column="24" selection-start-line="34" selection-start-column="24" selection-end-line="34" selection-end-column="24" />
+              <folding>
+                <element signature="e#29#38#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="util_defined.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/util_defined.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="139">
+              <caret line="56" column="45" lean-forward="true" selection-start-line="56" selection-start-column="45" selection-end-line="56" selection-end-column="45" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>test_patch_path</find>
+    </findStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/Postprocess/draw_heatmap.py" />
+        <option value="$PROJECT_DIR$/Postprocess/heatmap_ops.py" />
+        <option value="$PROJECT_DIR$/Preprocess/ops.py" />
+        <option value="$PROJECT_DIR$/Postprocess/get_patches_for_heatmaps.py" />
+        <option value="$PROJECT_DIR$/Postprocess/generator_heatmap.py" />
+        <option value="$PROJECT_DIR$/Postprocess/get_test_patches_for_heatmap.py" />
+        <option value="$PROJECT_DIR$/Postprocess/compute_patch_probability.py" />
+        <option value="$PROJECT_DIR$/Preprocess/get_patches.py" />
+        <option value="$PROJECT_DIR$/util_defined.py" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="NodePackageJsonFileManager">
+    <packageJsonPaths />
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="403" />
+    <option name="y" value="23" />
+    <option name="width" value="1781" />
+    <option name="height" value="955" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="wsi_tumor_detection" type="b2602c69:ProjectViewProjectNode" />
+              <item name="wsi_tumor_detection" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../wsi_tumor_detection_old" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PythonContentEntriesConfigurable" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Python.get_patches">
+    <configuration name="compute_patch_probability" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="wsi_tumor_detection" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="LD_LIBRARY_PATH" value="/usr/local/cuda-9.0/lib64:/usr/local/cuda-9.0/extras/CUPTI/lib64" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Postprocess" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Postprocess/compute_patch_probability.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
+    <configuration name="generator_heatmap" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="wsi_tumor_detection" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Postprocess" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Postprocess/generator_heatmap.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
+    <configuration name="get_patches" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="wsi_tumor_detection" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Preprocess" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Preprocess/get_patches.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
+    <configuration name="get_patches_for_heatmaps" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="wsi_tumor_detection" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Postprocess" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Postprocess/get_patches_for_heatmaps.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
+    <configuration name="get_test_patches_for_heatmap" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="wsi_tumor_detection" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Postprocess" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Postprocess/get_test_patches_for_heatmap.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
+    <list>
+      <item itemvalue="Python.get_patches_for_heatmaps" />
+      <item itemvalue="Python.get_test_patches_for_heatmap" />
+      <item itemvalue="Python.compute_patch_probability" />
+      <item itemvalue="Python.generator_heatmap" />
+      <item itemvalue="Python.get_patches" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.get_patches" />
+        <item itemvalue="Python.generator_heatmap" />
+        <item itemvalue="Python.compute_patch_probability" />
+        <item itemvalue="Python.get_test_patches_for_heatmap" />
+        <item itemvalue="Python.get_patches_for_heatmaps" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a8fbc88b-cc6c-4725-bf76-3d7f3e528a40" name="Default" comment="" />
+      <created>1540715456715</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1540715456715</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="65" y="-4" width="1855" height="1084" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info anchor="bottom" id="Database Changes" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" />
+      <window_info anchor="bottom" id="Python Console" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.29918033" />
+      <window_info anchor="bottom" id="Terminal" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17088948" />
+      <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
+      <window_info anchor="right" id="Database" />
+      <window_info anchor="right" id="SciView" visible="true" weight="0.2884097" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" side_tool="true" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="3" />
+    </breakpoint-manager>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/Postprocess/heatmap_ops.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="5" selection-start-line="5" selection-end-line="5" />
+          <folding>
+            <element signature="e#29#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Preprocess/get_mask.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="256">
+          <caret line="74" column="100" selection-start-line="74" selection-start-column="89" selection-end-line="74" selection-end-column="100" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Postprocess/get_patches_for_heatmaps.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="3" selection-start-line="3" selection-end-line="3" />
+          <folding>
+            <element signature="e#31#66#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/anaconda3/envs/pycharm_pra/lib/python3.6/site-packages/keras/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="42">
+          <caret line="2" selection-start-line="2" selection-end-line="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/anaconda3/envs/pycharm_pra/lib/python3.6/genericpath.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="178">
+          <caret line="148" selection-start-line="148" selection-end-line="148" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Postprocess/draw_heatmap.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-168">
+          <caret line="13" column="56" selection-start-line="13" selection-start-column="56" selection-end-line="13" selection-end-column="56" />
+          <folding>
+            <element signature="e#29#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Postprocess/get_test_patches_for_heatmap.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="36" column="43" selection-start-line="36" selection-start-column="43" selection-end-line="36" selection-end-column="43" />
+          <folding>
+            <element signature="e#29#45#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Postprocess/compute_patch_probability.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="475">
+          <caret line="93" lean-forward="true" selection-start-line="93" selection-end-line="93" />
+          <folding>
+            <element signature="e#149#158#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Postprocess/generator_heatmap.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1">
+          <caret line="24" column="49" selection-start-line="24" selection-start-column="49" selection-end-line="24" selection-end-column="49" />
+          <folding>
+            <element signature="e#29#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Keras_Finetuning/train_images_classfier.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="106">
+          <caret line="148" lean-forward="true" selection-start-line="148" selection-end-line="148" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/util_defined.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="139">
+          <caret line="56" column="45" lean-forward="true" selection-start-line="56" selection-start-column="45" selection-end-line="56" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Preprocess/ops.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="256">
+          <caret line="146" column="17" lean-forward="true" selection-start-line="146" selection-start-column="17" selection-end-line="146" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Preprocess/get_patches.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="34" column="24" selection-start-line="34" selection-start-column="24" selection-end-line="34" selection-end-column="24" />
+          <folding>
+            <element signature="e#29#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
