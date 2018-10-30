@@ -83,6 +83,7 @@ def get_data_generator(train_path, val_path):
                                        rescale=1./255,
                                        rotation_range=20,
                                        zoom_range=0.2,
+                                       shear_range=0.2,
                                        horizontal_flip=True)
     train_generator = train_datagen.flow_from_directory(train_path,
                                                         target_size=(256,256),

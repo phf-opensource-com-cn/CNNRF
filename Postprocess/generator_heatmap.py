@@ -31,11 +31,11 @@ if __name__ == '__main__':
 
         probability_csv = pd.read_csv(os.path.join(args.probability_result, probability_result))
         for i in range(len(probability_csv)):
-            [h, w] = [int(probability_csv['file'][i].split('_')[0]),
+            [h, w] = [int(probability_csv['file'][i].split('_')[0].split('/')[-1]),
                       int(probability_csv['file'][i].split('_')[-1].split('.')[0])]
 
-            #heatmap_zeros[w][h] = round(probability_csv['probability'][i], 2)
-            heatmap_zeros[w][h] = 1 if round(probability_csv['probability'][i], 2)>0.9 else 0
+            heatmap_zeros[w][h] = round(probability_csv['probability'][i], 2)
+            # heatmap_zeros[w][h] = 1 if round(probability_csv['probability'][i], 2) > 0.9 else 0
 
         heatmap_name = os.path.join(args.heatmap_path, slide_name+'_heatmap.png')
         plt.imsave(heatmap_name, heatmap_zeros)

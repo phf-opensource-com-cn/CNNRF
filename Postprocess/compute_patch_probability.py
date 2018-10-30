@@ -15,6 +15,7 @@ from keras.preprocessing.image import ImageDataGenerator
 from keras.models import model_from_json
 
 from util_defined import config, hp
+from Postprocess.list_for_predict_ops import get_class_fnames
 
 parser = argparse.ArgumentParser(description='Computer the patch"s probability of tumor. ')
 parser.add_argument('--patch_path', default=config.PATCH_FOR_HEATMAP_test_DIR, type=str,
@@ -56,7 +57,6 @@ def choose_model_according_to_model_name(name):
     return os.path.join(model_dir, name+'_finetuning.json'), os.path.join(model_dir, name+'.best.h5')
 
 
-
 if __name__ == "__main__":
 
     args = parser.parse_args()
@@ -76,8 +76,11 @@ if __name__ == "__main__":
                                               workers=6, use_multiprocessing=True, verbose=1)
 
             probability_list = history[:, 1:len(history)].flatten().tolist()
-            filename_list = os.listdir(os.path.join(patch_dirs, os.path.join(patch_dir, patch_dir)))
-            file_probability = {'file': filename_list,
+
+            # get the filename list and its classes based on keras images generator
+            classes, filenames = get_class_fnames(os.path.join(patch_dirs, patch_dir))
+
+            file_probability = {'file': filenames,
                                 'probability': probability_list}
             data = pd.DataFrame(file_probability)
 
