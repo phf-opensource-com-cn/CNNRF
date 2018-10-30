@@ -1,12 +1,29 @@
 # utf-8
 # Author: ilikewind
 
+'''
+in order to get the filename -- probability correspond. I have
+read the keras code in github and copy the function for my aim.
+the link:
+https://github.com/keras-team/keras-preprocessing/blob/master/keras_preprocessing/image.py
+https://github.com/keras-team/keras/blob/master/keras/preprocessing/image.py
+'''
+
 import os
 import multiprocessing.pool
 import warnings
 
-
-def get_class_fnames(directory, classes=None, ):
+def get_class_fnames(directory, classes=None,
+                     white_list_formats = {'png', 'jpg', 'jpeg', 'bmp', 'ppm', 'tif', 'tiff'},
+                     follow_links=False):
+    '''
+    get the one by one order, for its correspond. such as predict1 -- file1
+    :param directory:the base directory such as tumor0, and tumor0 contains tumor, normal subdirectory
+    :param classes:if None, it will be [subdir1, subdir0, subdir2.....], else it will be classes=[tumor,normal]
+    :param white_list_formats:the file format need feed to the iter
+    :param follow_links:always False.
+    :return:classes, filenames  ======  [0,1,1,0,1,0,0,1], [normal.png, tumor.png, tumor.png, ..]
+    '''
     if not classes:
         classes = []
         for subdir in sorted(os.listdir(directory)):
@@ -16,11 +33,6 @@ def get_class_fnames(directory, classes=None, ):
     class_indices = dict(zip(classes, range(len(classes))))
 
     pool = multiprocessing.pool.ThreadPool()
-    '''
-    设置默认的功能
-    '''
-    white_list_formats = {'png', 'jpg', 'jpeg', 'bmp', 'ppm', 'tif', 'tiff'}
-    follow_links = False
 
     results = []
     filenames = []
